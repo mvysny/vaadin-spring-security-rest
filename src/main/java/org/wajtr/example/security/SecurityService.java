@@ -7,6 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
+/**
+ * Taken from <a href="https://vaadin.com/docs/latest/security/enabling-security">Vaadin Security</a> documentation.
+ */
 public class SecurityService {
 
     private static final String LOGOUT_SUCCESS_URL = "/";
