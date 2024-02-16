@@ -5,22 +5,16 @@ only when the user logs in. This is the [link to the project](https://start.vaad
 That added Spring Security to the project (see `SecurityConfiguration` class) and did the necessary configuration
 by extending the `VaadinWebSecurity`. That makes things much easier.
 
-This default configuration uses the `UserDetailsServiceImpl` to load the user details. It is expected that these
-details contain also the hashed password. This hashed password is then compared to the password that the user
-enters in the login form using the `PasswordEncoder`, which is configured in the `SecurityConfiguration` class.
+This default configuration uses the `UserRESTService` to login the user.
+`UserRESTService` has only one method: `loginUser(String username, String password)`.
 
 If, for any reason, you do not like this flow, or you simply need to validate the password using another way,
-you have to provide your own implementation of the `AuthenticationProvider`.
-
-This projects shows how to do that. Please take a look at the second commit in this project. It adds
-`CustomAuthenticationProvider` and shows how to use it in the `SecurityConfiguration` class.
-
-Also take a look at all the comments in the `CustomAuthenticationProvider` class.
+you have to provide your own implementation of the `AuthenticationProvider`. See `CustomAuthenticationProvider` class for more details.
 
 ## Useful stuff for debugging
 
 * Place a breakpoint in the `org.springframework.security.authentication.ProviderManager.authenticate` method and see what is going on in there when you press Login button in the login form
-* By default, the `DaoAuthenticationProvider` is used - you can take a heavy inspiration from it
+* Place a breakpoint in the `UserRESTService.loginUser()` method and see what is going on in there when you press Login button in the login form
 * Spring Security uses a set of filters to perform the whole authentication process. Take a look what filters and in which order they are executed by searching for `DefaultSecurityFilterChain` in the application log. The log line starts with `Will securty any request with`
 
 ## Running the application

@@ -33,14 +33,14 @@ public class UserRESTService {
                 throw new BadCredentialsException(messages
                         .getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
             }
-            return new User(username, "IGNORED", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            return new User(username, "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
         }
         if (username.equals("admin")) {
             if (!password.equals("admin")) {
                 throw new BadCredentialsException(messages
                         .getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
             }
-            return new User(username, "IGNORED", List.of(new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_ADMIN")));
+            return new User(username, "", List.of(new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_ADMIN")));
         }
         throw new UsernameNotFoundException("No user present with username: " + username);
     }
