@@ -11,6 +11,8 @@ This default configuration uses the `UserRESTService` to login the user.
 If, for any reason, you do not like this flow, or you simply need to validate the password using another way,
 you have to provide your own implementation of the `AuthenticationProvider`. See `CustomAuthenticationProvider` class for more details.
 
+> Acknowledgements: this app builds on excellent [Bretislav Wajtr's Custom Password Check app](https://github.com/bwajtr/example-vaadin-spring-security-custom-password-check).
+
 ## Useful stuff for debugging
 
 * Place a breakpoint in the `org.springframework.security.authentication.ProviderManager.authenticate` method and see what is going on in there when you press Login button in the login form
