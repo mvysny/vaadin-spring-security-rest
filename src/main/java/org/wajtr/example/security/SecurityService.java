@@ -2,6 +2,7 @@ package org.wajtr.example.security;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinServletRequest;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ public class SecurityService {
 
     private static final String LOGOUT_SUCCESS_URL = "/";
 
+    @Nullable
     public static UserDetails getAuthenticatedUser() {
         SecurityContext context = SecurityContextHolder.getContext();
         Object principal = context.getAuthentication().getPrincipal();

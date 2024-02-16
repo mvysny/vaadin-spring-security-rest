@@ -1,5 +1,6 @@
 package org.wajtr.example.security;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -18,11 +19,12 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
     private UserRESTService userService;
 
     @Override
-    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+    protected void additionalAuthenticationChecks(@NotNull UserDetails userDetails, @NotNull UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
     }
 
     @Override
-    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+    @NotNull
+    protected UserDetails retrieveUser(@NotNull String username, @NotNull UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         // just some basic checking first
         if (authentication.getCredentials() == null) {
             this.logger.debug("Failed to authenticate since no credentials provided");

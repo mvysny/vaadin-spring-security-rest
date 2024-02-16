@@ -32,5 +32,4 @@ public class AboutView extends VerticalLayout {
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         getStyle().set("text-align", "center");
     }
-
 }

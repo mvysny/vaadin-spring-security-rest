@@ -1,5 +1,6 @@
 package org.wajtr.example.services;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -22,9 +23,10 @@ public class UserRESTService {
      * @param password
      * @return
      * @throws BadCredentialsException on incorrect password
-     * @throws
+     * @throws UsernameNotFoundException if there's no such user
      */
-    public User loginUser(String username, String password) throws AuthenticationException {
+    @NotNull
+    public User loginUser(@NotNull String username, @NotNull String password) throws AuthenticationException {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
         final MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();

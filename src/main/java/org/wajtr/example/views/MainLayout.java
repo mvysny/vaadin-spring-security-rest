@@ -13,6 +13,7 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.vaadin.lineawesome.LineAwesomeIcon;
 import org.wajtr.example.security.SecurityService;
@@ -24,11 +25,13 @@ import org.wajtr.example.views.helloworld.HelloWorldView;
  */
 public class MainLayout extends AppLayout {
 
-    private H2 viewTitle;
+    @NotNull
+    private final H2 viewTitle = new H2();
 
-    private AccessAnnotationChecker accessChecker;
+    @NotNull
+    private final AccessAnnotationChecker accessChecker;
 
-    public MainLayout(AccessAnnotationChecker accessChecker) {
+    public MainLayout(@NotNull AccessAnnotationChecker accessChecker) {
         this.accessChecker = accessChecker;
 
         setPrimarySection(Section.DRAWER);
@@ -40,7 +43,6 @@ public class MainLayout extends AppLayout {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
 
-        viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
         addToNavbar(true, toggle, viewTitle);
@@ -56,6 +58,7 @@ public class MainLayout extends AppLayout {
         addToDrawer(header, scroller, createFooter());
     }
 
+    @NotNull
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
@@ -72,6 +75,7 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
+    @NotNull
     private Footer createFooter() {
         Footer layout = new Footer();
 
@@ -114,6 +118,7 @@ public class MainLayout extends AppLayout {
         viewTitle.setText(getCurrentPageTitle());
     }
 
+    @NotNull
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();

@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.internal.RouteUtil;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import org.jetbrains.annotations.NotNull;
 import org.wajtr.example.security.SecurityService;
 
 @AnonymousAllowed
@@ -31,7 +32,7 @@ public class LoginView extends LoginOverlay implements BeforeEnterObserver {
     }
 
     @Override
-    public void beforeEnter(BeforeEnterEvent event) {
+    public void beforeEnter(@NotNull BeforeEnterEvent event) {
         if (SecurityService.isLoggedIn()) {
             // Already logged in
             setOpened(false);

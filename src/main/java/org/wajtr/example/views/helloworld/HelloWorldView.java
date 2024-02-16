@@ -17,12 +17,9 @@ import org.wajtr.example.views.MainLayout;
 @PermitAll
 public class HelloWorldView extends HorizontalLayout {
 
-    private TextField name;
-    private Button sayHello;
-
     public HelloWorldView() {
-        name = new TextField("Your name");
-        sayHello = new Button("Say hello");
+        final TextField name = new TextField("Your name");
+        final Button sayHello = new Button("Say hello");
         sayHello.addClickListener(e -> {
             Notification.show("Hello " + name.getValue());
         });

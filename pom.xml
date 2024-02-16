@@ -78,9 +78,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench-junit5</artifactId>
-            <scope>test</scope>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -142,52 +143,5 @@
                 </plugins>
             </build>
         </profile>
-
-        <profile>
-            <id>it</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start-spring-boot</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-spring-boot</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Runs the integration tests (*IT) after the server is started -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <trimStackTrace>false</trimStackTrace>
-                            <enableAssertions>true</enableAssertions>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
 </project>
