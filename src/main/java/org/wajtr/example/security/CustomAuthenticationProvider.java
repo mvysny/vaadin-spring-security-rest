@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 // We still extend AbstractUserDetailsAuthenticationProvider to benefit most of the functionality of user and password checking
 public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public CustomAuthenticationProvider(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -53,7 +53,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 
         // The code in this class is inspired by how the DaoAuthenticationProvider works.
 
-        UserDetails loadedUser = this.getUserDetailsService().loadUserByUsername(username);
+        UserDetails loadedUser = userDetailsService.loadUserByUsername(username);
         if (loadedUser == null) {
             throw new InternalAuthenticationServiceException(
                     "UserDetailsService returned null, which is an interface contract violation");
@@ -61,7 +61,4 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         return loadedUser;
     }
 
-    public UserDetailsService getUserDetailsService() {
-        return userDetailsService;
-    }
 }

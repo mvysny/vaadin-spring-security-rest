@@ -20,9 +20,24 @@ public class SecurityConfiguration extends VaadinWebSecurity {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Delegating the responsibility of general configurations
+        // of http security to the super class. It's configuring
+        // the followings: Vaadin's CSRF protection by ignoring
+        // framework's internal requests, default request cache,
+        // ignoring public views annotated with @AnonymousAllowed,
+        // restricting access to other views/endpoints, and enabling
+        // NavigationAccessControl authorization.
+        // You can add any possible extra configurations of your own
+        // here (the following is just an example):
 
+        // http.rememberMe().alwaysRemember(false);
+
+        // Configure your static resources with public access before calling
+        // super.configure(HttpSecurity) as it adds final anyRequest matcher
+        http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/public/**"))
+                .permitAll());
         http.authorizeHttpRequests(
-                authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/images/*.png")).permitAll());
+                authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll());
 
         // Icons from the line-awesome addon
         http.authorizeHttpRequests(authorize -> authorize
@@ -32,7 +47,9 @@ public class SecurityConfiguration extends VaadinWebSecurity {
         http.authenticationProvider(new CustomAuthenticationProvider(userDetailsService));
 
         super.configure(http);
+
+        // This is important to register your login view to the
+        // navigation access control mechanism:
         setLoginView(http, LoginView.class);
     }
-
 }
