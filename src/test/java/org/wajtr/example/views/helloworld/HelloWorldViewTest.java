@@ -2,8 +2,7 @@ package org.wajtr.example.views.helloworld;
 
 import com.vaadin.flow.component.UI;
 import org.junit.jupiter.api.Test;
-import org.wajtr.example.views.AbstractAppTest;
-import org.wajtr.example.views.about.AboutView;
+import org.wajtr.example.AbstractAppTest;
 import org.wajtr.example.views.login.LoginView;
 
 import static com.github.mvysny.kaributesting.v10.LocatorJ._assertOne;

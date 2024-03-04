@@ -1,4 +1,4 @@
-package org.wajtr.example.views;
+package org.wajtr.example;
 
 import com.github.mvysny.kaributesting.mockhttp.MockRequest;
 import com.github.mvysny.kaributesting.v10.MockVaadin;
@@ -9,6 +9,7 @@ import com.vaadin.flow.server.VaadinServletRequest;
 import com.vaadin.flow.spring.SpringServlet;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function2;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.wajtr.example.security.SecurityService;
 
 import java.security.Principal;
@@ -42,11 +45,12 @@ public abstract class AbstractAppTest {
     @Autowired
     protected ApplicationContext ctx;
 
-    protected void login(String user, String pass, final List<String> roles) {
+    protected void login(@NotNull String username, @NotNull String pass, @NotNull final List<String> roles) {
         // taken from https://www.baeldung.com/manually-set-user-authentication-spring-security
         // also see https://github.com/mvysny/karibu-testing/issues/47 for more details.
         final List<SimpleGrantedAuthority> authorities =
                 roles.stream().map(it -> new SimpleGrantedAuthority("ROLE_" + it)).collect(Collectors.toList());
+        final User user = new User(username, "", authorities);
         UsernamePasswordAuthenticationToken authReq
                 = new UsernamePasswordAuthenticationToken(user, pass, authorities);
         SecurityContext sc = SecurityContextHolder.getContext();
