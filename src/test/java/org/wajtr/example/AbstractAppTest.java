@@ -1,6 +1,6 @@
 package org.wajtr.example;
 
-import com.github.mvysny.kaributesting.mockhttp.MockRequest;
+import com.github.mvysny.fakeservlet.FakeRequest;
 import com.github.mvysny.kaributesting.v10.MockVaadin;
 import com.github.mvysny.kaributesting.v10.Routes;
 import com.github.mvysny.kaributesting.v10.spring.MockSpringServlet;
@@ -35,8 +35,8 @@ import java.util.stream.Collectors;
  * You can perform programmatic logins via {@link #login(String, String, List)}.
  * Alternatively, you can use the <code>@WithMockUser</code> annotation
  * as described at <a href="https://www.baeldung.com/spring-security-integration-tests">Spring Security IT</a>,
- * but you will need still to call {@link MockRequest#setUserPrincipalInt(Principal)}
- * and {@link MockRequest#setUserInRole(Function2)}.
+ * but you will need still to call {@link FakeRequest#setUserPrincipalInt(Principal)}
+ * and {@link FakeRequest#setUserInRole(Function2)}.
  */
 @SpringBootTest
 public abstract class AbstractAppTest {
@@ -58,7 +58,7 @@ public abstract class AbstractAppTest {
 
         // however, you also need to make sure that ViewAccessChecker works properly;
         // that requires a correct MockRequest.userPrincipal and MockRequest.isUserInRole()
-        final MockRequest request = (MockRequest) VaadinServletRequest.getCurrent().getRequest();
+        final FakeRequest request = (FakeRequest) VaadinServletRequest.getCurrent().getRequest();
         request.setUserPrincipalInt(authReq);
         request.setUserInRole((principal, role) -> roles.contains(role));
     }
@@ -74,7 +74,7 @@ public abstract class AbstractAppTest {
     protected void logout() {
         SecurityService.logout();
         if (VaadinServletRequest.getCurrent() != null) {
-            final MockRequest request = (MockRequest) VaadinServletRequest.getCurrent().getRequest();
+            final FakeRequest request = (FakeRequest) VaadinServletRequest.getCurrent().getRequest();
             request.setUserPrincipalInt(null);
             request.setUserInRole((principal, role) -> false);
         }
