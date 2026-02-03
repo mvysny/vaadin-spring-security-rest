@@ -1,5 +1,6 @@
 package org.wajtr.example.views;
 
+import com.github.mvysny.kaributesting.v10.MockAccessDeniedException;
 import com.vaadin.flow.component.UI;
 import org.junit.jupiter.api.Test;
 import org.wajtr.example.AbstractAppTest;
@@ -18,7 +19,7 @@ public class AdminViewTest extends AbstractAppTest {
     @Test
     public void inaccessibleByUser() {
         loginUser();
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(MockAccessDeniedException.class, () -> {
             UI.getCurrent().navigate(AdminView.class);
         });
         _assertOne(LoginView.class);
